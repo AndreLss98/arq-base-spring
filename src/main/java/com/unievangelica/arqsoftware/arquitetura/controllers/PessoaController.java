@@ -5,6 +5,8 @@ import java.util.List;
 import com.unievangelica.arqsoftware.arquitetura.entitys.PessoaEntity;
 import com.unievangelica.arqsoftware.arquitetura.services.PessoaService;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,27 +25,27 @@ public class PessoaController {
     PessoaService pessoaService;
 
     @GetMapping
-    public List<PessoaEntity> findAll() {
-        return pessoaService.findAll();
+    public ResponseEntity<List<PessoaEntity>> findAll() {
+        return new ResponseEntity<>(pessoaService.findAll(), HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
-    public PessoaEntity findOne(@PathVariable(name = "id") long id) {
-        return pessoaService.findOne(id);
+    public ResponseEntity<PessoaEntity> findOne(@PathVariable(name = "id") long id) {
+        return new ResponseEntity<>(pessoaService.findOne(id), HttpStatus.OK);
     }
 
     @PostMapping
-    public PessoaEntity save(@RequestBody PessoaEntity pessoa) {
-        return pessoaService.save(pessoa);
+    public ResponseEntity<PessoaEntity> save(@RequestBody PessoaEntity pessoa) {
+        return new ResponseEntity<>(pessoaService.save(pessoa), HttpStatus.OK);
     }
 
     @PutMapping("/{id}")
-    public PessoaEntity update(@RequestBody PessoaEntity pessoa) {
-        return pessoaService.save(pessoa);
+    public ResponseEntity<PessoaEntity> update(@RequestBody PessoaEntity pessoa) {
+        return new ResponseEntity<>(pessoaService.save(pessoa), HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
-    public Boolean delete(@PathVariable(name = "id") long id) {
-        return pessoaService.delete(id);
+    public ResponseEntity<Boolean> delete(@PathVariable(name = "id") long id) {
+        return new ResponseEntity<>(pessoaService.delete(id), HttpStatus.OK);
     }
 }

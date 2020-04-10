@@ -15,22 +15,22 @@ public class PessoaService {
     PessoaRepository pessoaRepository;
 
     public List<PessoaEntity> findAll() {
-        return null;
+        return pessoaRepository.findAll();
     }
 
     public PessoaEntity findOne(long id) {
-        return null;
+        return pessoaRepository.findById(id);
     }
 
     public PessoaEntity save(PessoaEntity pessoa) {
-        return null;
+        return pessoaRepository.save(pessoa);
     }
 
     public PessoaEntity update(PessoaEntity pessoa) {
-        return null;
+        return pessoaRepository.save(pessoa);
     }
 
     public Boolean delete(long id) {
-        return false;
+        return pessoaRepository.deleteById(id);
     }
 }

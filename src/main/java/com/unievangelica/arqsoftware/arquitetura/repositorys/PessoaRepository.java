@@ -6,5 +6,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface PessoaRepository extends JpaRepository<PessoaEntity, Long> {
     PessoaEntity findById(long id);
-    void deleteById(long id);
+    Boolean deleteById(long id);
 }
