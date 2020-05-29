@@ -25,8 +25,8 @@ public class PessoaController {
     PessoaService pessoaService;
 
     @GetMapping
-    public ResponseEntity<List<PessoaEntity>> findAll() {
-        return new ResponseEntity<>(pessoaService.findAll(), HttpStatus.OK);
+    public ResponseEntity<?> findAll() {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{error: 'message'}");
     }
 
     @GetMapping("/{id}")

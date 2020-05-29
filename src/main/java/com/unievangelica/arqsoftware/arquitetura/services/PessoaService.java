@@ -8,7 +8,7 @@ import com.unievangelica.arqsoftware.arquitetura.repositorys.PessoaRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 
-@Service
+@Service()
 public class PessoaService {
 
     @Autowired
