@@ -1,51 +1,29 @@
 package com.unievangelica.arqsoftware.arquitetura.controllers;
 
-import java.util.List;
-
+import com.unievangelica.arqsoftware.arquitetura.core.CrudController;
 import com.unievangelica.arqsoftware.arquitetura.entitys.PessoaEntity;
-import com.unievangelica.arqsoftware.arquitetura.services.PessoaService;
+
+import com.unievangelica.arqsoftware.arquitetura.exceptions.DefaultException;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping(value = "/pessoas")
-public class PessoaController {
+public class PessoaController extends CrudController<PessoaEntity> {
 
-    @Autowired
-    PessoaService pessoaService;
-
-    @GetMapping
-    public ResponseEntity<?> findAll() {
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{error: 'message'}");
-    }
-
-    @GetMapping("/{id}")
-    public ResponseEntity<PessoaEntity> findOne(@PathVariable(name = "id") long id) {
-        return new ResponseEntity<>(pessoaService.findOne(id), HttpStatus.OK);
-    }
-
+    @Override
     @PostMapping
-    public ResponseEntity<PessoaEntity> save(@RequestBody PessoaEntity pessoa) {
-        return new ResponseEntity<>(pessoaService.save(pessoa), HttpStatus.OK);
-    }
+    public ResponseEntity<PessoaEntity> save(@RequestBody() PessoaEntity pessoa) {
 
-    @PutMapping("/{id}")
-    public ResponseEntity<PessoaEntity> update(@RequestBody PessoaEntity pessoa) {
-        return new ResponseEntity<>(pessoaService.save(pessoa), HttpStatus.OK);
-    }
+        if (pessoa.getName() == "" || pessoa.getName() == null) {
+            throw new DefaultException("Name is required");
+        }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Boolean> delete(@PathVariable(name = "id") long id) {
-        return new ResponseEntity<>(pessoaService.delete(id), HttpStatus.OK);
+        return new ResponseEntity<>(service.save(pessoa), HttpStatus.OK);
     }
 }
