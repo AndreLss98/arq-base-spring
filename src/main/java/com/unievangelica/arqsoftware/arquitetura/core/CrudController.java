@@ -1,6 +1,11 @@
 package com.unievangelica.arqsoftware.arquitetura.core;
 
 import java.util.List;
+import java.util.Optional;
+
+import javax.persistence.Entity;
+
+import com.unievangelica.arqsoftware.arquitetura.exceptions.DefaultException;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,8 +28,14 @@ public class CrudController<T> {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<?> findById(@PathVariable(name = "id") long id){
-        return new ResponseEntity<>(service.findById(id), HttpStatus.OK);
+    public ResponseEntity<T> findById(@PathVariable(name = "id") long id) {
+
+        Optional<T> entity = service.findById(id);
+
+        if (entity.isPresent()) {
+            return new ResponseEntity<>(entity.get(), HttpStatus.OK);
+        }
+        throw new DefaultException("Resouce not found");
     }
 
     @PostMapping

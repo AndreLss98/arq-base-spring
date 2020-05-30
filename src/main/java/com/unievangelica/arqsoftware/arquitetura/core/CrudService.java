@@ -1,6 +1,7 @@
 package com.unievangelica.arqsoftware.arquitetura.core;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,8 +19,8 @@ public class CrudService<T> implements ICrudService<T> {
     }
 
     @Override
-    public T findById(long id) {
-        return repository.getOne(id);
+    public Optional<T> findById(long id) {
+        return repository.findById(id);
     }
 
     @Override
