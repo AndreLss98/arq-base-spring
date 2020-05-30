@@ -20,7 +20,8 @@ public class CrudService<T> implements ICrudService<T> {
 
     @Override
     public Optional<T> findById(long id) {
-        return repository.findById(id);
+        Optional<T> entity = repository.findById(id);
+        return entity;
     }
 
     @Override
@@ -35,9 +36,9 @@ public class CrudService<T> implements ICrudService<T> {
 
     @Override
     public boolean delete(long id) {
-        T obj = this.findById(id);
-        if (obj != null) {
-            repository.delete(obj);
+        Optional<T> obj = this.findById(id);
+        if (obj.isPresent()) {
+            repository.delete(obj.get());
             return true;
         }
         return false;

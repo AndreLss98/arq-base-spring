@@ -3,8 +3,6 @@ package com.unievangelica.arqsoftware.arquitetura.core;
 import java.util.List;
 import java.util.Optional;
 
-import javax.persistence.Entity;
-
 import com.unievangelica.arqsoftware.arquitetura.exceptions.DefaultException;
 
 import org.springframework.http.HttpStatus;
@@ -32,10 +30,10 @@ public class CrudController<T> {
 
         Optional<T> entity = service.findById(id);
 
-        if (entity.isPresent()) {
-            return new ResponseEntity<>(entity.get(), HttpStatus.OK);
+        if (!entity.isPresent()) {
+            throw new DefaultException("Resouce not found");
         }
-        throw new DefaultException("Resouce not found");
+        return new ResponseEntity<>(entity.get(), HttpStatus.OK);
     }
 
     @PostMapping
